@@ -18,16 +18,15 @@
         <a-entity 
             gltf-model="#museo-glb" 
             position="0 0 0" 
-            scale="1 1 1">
+            scale="10 10 10">
+        </a-entity>
 
-            <!-- Cámara dentro del museo con controles mejorados -->
-            <a-entity id="rig" position="0 1.6 0"> <!-- Ajustada a la altura del suelo -->
+        <!-- Cámara dentro del museo con controles -->
+        <a-entity id="rig" position="0 1.6 0">
             <a-entity 
                 camera 
                 look-controls 
-                wasd-controls="acceleration: 150" 
-                position="0 0 0">
-               </a-entity>
+                wasd-controls="acceleration: 150">
             </a-entity>
         </a-entity>
         
@@ -37,4 +36,3 @@
     </a-scene>
 </body>
 </html>
-
