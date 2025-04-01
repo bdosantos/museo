@@ -44,18 +44,18 @@
 
                             // Movimiento adelante/atrás
                             if (beta > 15) {
-                                el.object3D.position.z -= 0.1;
+                                el.object3D.position.z -= 1;
                             }
                             if (beta < -15) {
-                                el.object3D.position.z += 0.1;
+                                el.object3D.position.z += 1;
                             }
 
                             // Movimiento izquierda/derecha
                             if (gamma > 10) {
-                                el.object3D.position.x += 0.1;
+                                el.object3D.position.x += 1;
                             }
                             if (gamma < -10) {
-                                el.object3D.position.x -= 0.1;
+                                el.object3D.position.x -= 1;
                             }
                         });
                     }
