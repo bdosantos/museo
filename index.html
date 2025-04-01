@@ -15,15 +15,49 @@
         </a-assets>
 
         <!-- Modelo 3D del museo -->
-        <a-entity gltf-model="#museo-glb" scale="10 10 10" position="10 0 10" static-body>
-             <!-- Cámara dentro del museo con controles de mira y controles WASD -->
-             <a-entity camera look-controls wasd-controls="acceleration: 500" position="100 50 0"
-              rotation="0 0 0" dynamic-body look-at="190 10 -34"></a-entity>
+        <a-entity 
+            gltf-model="#museo-glb" 
+            scale="10 10 10" 
+            position="0 0 0" 
+            static-body>
+        </a-entity>
+
+        <!-- Cámara con controles móviles -->
+        <a-entity id="rig" position="0 1.6 0">
+            <a-entity 
+                camera 
+                wasd-controls="acceleration: 200" 
+                look-controls="pointerLockEnabled: true">
             </a-entity>
-         </a-entity>
-        <!-- Iluminación -->
-        <a-light type="directional" color="#FFFFFF" intensity="1" position="0 10 5"></a-light>
-        <a-light type="ambient" color="#FFFFFF" intensity="0.75"></a-light>
+        </a-entity>
+
+        <!-- Permitir movimiento con orientación del dispositivo -->
+        <script>
+            AFRAME.registerComponent('mobile-movement', {
+                init: function () {
+                    const el = this.el;
+                    window.addEventListener('deviceorientation', function (event) {
+                        const beta = event.beta; // Inclinación frontal-trasera
+                        const gamma = event.gamma; // Inclinación lateral
+                        
+                        // Movimiento adelante/atrás
+                        if (beta > 15) el.object3D.position.z -= 0.1;
+                        if (beta < -15) el.object3D.position.z += 0.1;
+                        
+                        // Movimiento izquierda/derecha
+                        if (gamma > 10) el.object3D.position.x += 0.1;
+                        if (gamma < -10) el.object3D.position.x -= 0.1;
+                    });
+                }
+            });
+        </script>
+        <a-entity mobile-movement></a-entity>
+
+        <!-- Iluminación mejorada -->
+        <a-light type="ambient" color="#FFFFFF" intensity="1"></a-light>
+        <a-light type="point" position="10 10 10" intensity="2" color="#FFFFFF"></a-light>
+        <a-light type="point" position="-10 10 10" intensity="2" color="#FFFFFF"></a-light>
+        <a-light type="point" position="0 5 0" intensity="1.5" color="#FFFFFF"></a-light>
     </a-scene>
 </body>
 </html>
