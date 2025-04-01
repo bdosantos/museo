@@ -18,19 +18,19 @@
         <a-entity gltf-model="#museo-glb" scale="500 500 500">
             <!-- Luz ambiental con intensidad baja para evitar sobreiluminar las paredes -->
             <a-light type="ambient" color="#FFFFFF" intensity="0.35"></a-light>
-            
-          <!-- Cámara dentro del museo con controles de mira y controles WASD -->
-            <a-entity camera look-controls wasd-controls="acceleration: 150" position="0 0 0"></a-entity>
-
-            <!-- Luz direccional baja para iluminar el suelo sin afectar mucho a las paredes -->
-            <a-light type="directional" color="#FFFFFF" intensity="1" position="0 10 0" rotation="-45 0 0"></a-light>
-
-            <!-- Luces puntuales ajustadas para iluminar el suelo dentro del museo -->
-            <a-light type="point" color="#FFFFFF" intensity="0.5" position="0 5 0" distance="500"></a-light>
-            <a-light type="point" color="#FFFFFF" intensity="0.5" position="0 5 0" distance="400"></a-light>
-            <a-light type="point" color="#FFFFFF" intensity="0.5" position="- 5 0" distance="400"></a-light>
-            <a-light type="point" color="#FFFFFF" intensity="0.5" position="0 5 -0" distance="300"></a-light>
         </a-entity>
+
+        <!-- Cámara dentro del museo con controles de mira y controles WASD -->
+        <a-entity camera look-controls wasd-controls="acceleration: 150" position="0 1.6 0"></a-entity>
+        
+        <!-- Luz direccional baja para iluminar el suelo sin afectar mucho a las paredes -->
+        <a-light type="directional" color="#FFFFFF" intensity="0.5" position="0 10 0" rotation="-45 0 0"></a-light>
+
+        <!-- Luces puntuales ajustadas para iluminar el suelo dentro del museo -->
+        <a-light type="point" color="#FFFFFF" intensity="0.5" position="0 5 0" distance="500"></a-light>
+        <a-light type="point" color="#FFFFFF" intensity="0.5" position="5 5 0" distance="400"></a-light>
+        <a-light type="point" color="#FFFFFF" intensity="0.5" position="-5 5 0" distance="400"></a-light>
+        <a-light type="point" color="#FFFFFF" intensity="0.5" position="0 5 -5" distance="300"></a-light>
     </a-scene>
 </body>
 </html>
