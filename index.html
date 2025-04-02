@@ -33,30 +33,40 @@
             <!-- Permitir movimiento con orientación del dispositivo -->
             <a-entity mobile-movement></a-entity>
 
-            <!-- Script para movimiento con orientación del dispositivo -->
+            <!-- Script para movimiento con orientación y distancia -->
             <script>
                 AFRAME.registerComponent('mobile-movement', {
+                    schema: {
+                        speed: { type: 'number', default: 0.5 } // Velocidad en VR
+                    },
                     init: function () {
                         const el = this.el;
-                        window.addEventListener('deviceorientation', function (event) {
-                            const beta = event.beta; // Inclinación frontal-trasera
+                        let prevBeta = null;
+                        let prevGamma = null;
+                        const movementThreshold = 0.1; // Umbral para movimiento
+
+                        window.addEventListener('deviceorientation', (event) => {
+                            const beta = event.beta; // Inclinación adelante/atrás
                             const gamma = event.gamma; // Inclinación lateral
 
-                            // Movimiento adelante/atrás
-                            if (beta > 15) {
-                                el.object3D.position.z -= 1;
-                            }
-                            if (beta < -15) {
-                                el.object3D.position.z += 1;
+                            // Calcular diferencias de inclinación
+                            if (prevBeta !== null && prevGamma !== null) {
+                                const deltaBeta = beta - prevBeta;
+                                const deltaGamma = gamma - prevGamma;
+
+                                // Movimiento adelante/atrás
+                                if (Math.abs(deltaBeta) > movementThreshold) {
+                                    el.object3D.position.z += deltaBeta > 0 ? -this.data.speed : this.data.speed;
+                                }
+
+                                // Movimiento izquierda/derecha
+                                if (Math.abs(deltaGamma) > movementThreshold) {
+                                    el.object3D.position.x += deltaGamma > 0 ? this.data.speed : -this.data.speed;
+                                }
                             }
 
-                            // Movimiento izquierda/derecha
-                            if (gamma > 10) {
-                                el.object3D.position.x += 1;
-                            }
-                            if (gamma < -10) {
-                                el.object3D.position.x -= 1;
-                            }
+                            prevBeta = beta;
+                            prevGamma = gamma;
                         });
                     }
                 });
